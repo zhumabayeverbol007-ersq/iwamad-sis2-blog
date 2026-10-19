@@ -1,32 +1,27 @@
-# React + TypeScript + Vite
+# iwamad-sis2-blog
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Pages: https://zhumabayeverbol007-ersq.github.io/iwamad-sis2-blog/
+Tests: Test Files 3 passed (3)
+Tests: Tests 3 passed (3)
+Protected: /dashboard
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+A small blog application built with React, TypeScript and React Router for
+SIS Assignment 2. It has five posts rendered dynamically, a like button on
+each post, a custom 404 page, and a protected dashboard route that requires
+sign-in.
 
-## React Compiler
+## Design decisions
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. **Layout route for shared header and footer.** The `<Layout>` component
+   wraps all pages using `<Outlet />`, so the navigation and footer never
+   re-render when the route changes.
 
-## Expanding the Oxlint configuration
+2. **Auth state in Context.** The sign-in state is one boolean in a React
+   Context, so any component can read it without prop drilling. The
+   `ProtectedRoute` component checks it and redirects to `/signin` when
+   signed out.
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
-```
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+3. **Simple validation on the sign-in form.** The form checks that the name
+   is not empty before calling `signIn()`, keeping the logic easy to read.
